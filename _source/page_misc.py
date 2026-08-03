@@ -566,6 +566,11 @@ def build_technical():
                '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s\n</urlset>\n' % body)
     open(os.path.join(OUT, "sitemap.xml"), "w").write(sitemap)
 
+    # IndexNow key file. Must be UTF-8 and contain nothing but the key.
+    # Served from the site root; verifies ownership when URLs are submitted.
+    with open(os.path.join(OUT, INDEXNOW_KEY + ".txt"), "w", encoding="utf-8") as fh:
+        fh.write(INDEXNOW_KEY)
+
     open(os.path.join(OUT, "robots.txt"), "w").write(f"""# {NAME} — {SITE}
 User-agent: *
 Allow: /

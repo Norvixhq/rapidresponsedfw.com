@@ -137,3 +137,18 @@
     }
   });
 })();
+
+  /* ---- Conversion tracking ------------------------------------------
+     GA4's enhanced measurement does NOT track tel: or mailto: clicks.
+     For this business the phone call IS the conversion, so without this
+     Analytics would only ever show pageviews. Guarded so the site works
+     normally if the tag is blocked or absent. ---------------------- */
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="tel:"], a[href^="mailto:"]');
+    if (!a || typeof window.gtag !== "function") return;
+    var isCall = a.getAttribute("href").indexOf("tel:") === 0;
+    window.gtag("event", isCall ? "call_click" : "email_click", {
+      link_location: a.getAttribute("data-cta") || "page",
+      page_path: location.pathname
+    });
+  }, true);

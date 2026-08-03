@@ -63,6 +63,9 @@ def mailto(subject=None, body=None):
         EMAIL, q(subject or EMAIL_SUBJECT), q(body or EMAIL_BODY))
 
 
+GA_ID = "G-X22YJKB5YQ"          # Google Analytics 4 measurement ID
+INDEXNOW_KEY = "acf7ea79795d468590f3c43c38ca45d7"   # IndexNow (Bing/Yandex/Seznam)
+
 MAILTO = mailto()
 
 # Display-only: <wbr> lets the address wrap at the @ instead of mid-domain.
@@ -212,7 +215,16 @@ def head(title, desc, canonical, schema=None, extra=""):
 <link rel="preload" as="image" href="/assets/img/logo-320.webp">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/style.css?v={CSS_V}">
-<script src="/assets/js/main.js?v={JS_V}" defer></script>{blocks}{extra}
+<script src="/assets/js/main.js?v={JS_V}" defer></script>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', '{GA_ID}');
+</script>{blocks}{extra}
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
